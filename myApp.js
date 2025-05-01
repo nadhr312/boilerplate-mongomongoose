@@ -1,4 +1,5 @@
 require('dotenv').config();
+var mongoose = require('mongoose');
 
 
 let Person;
@@ -50,6 +51,17 @@ const queryChain = (done) => {
 
   done(null /*, data*/);
 };
+
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const personSchema = new mongoose.Schema({
+  name: {type:String, required: true},
+  age: {type: Number},
+  favoriteFoods: {type:String}
+})
+
+Person = mongoose.model("Person", personSchema);
+
 
 /** **Well Done !!**
 /* You completed these challenges, let's go celebrate !
